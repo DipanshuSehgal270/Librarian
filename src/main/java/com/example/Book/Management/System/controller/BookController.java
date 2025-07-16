@@ -5,11 +5,11 @@ import com.example.Book.Management.System.entity.BookStatus;
 import com.example.Book.Management.System.service.BookService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -23,9 +23,11 @@ public class BookController {
 
     //TODO SOLVING THE ERROR FOR FETCHING ALL BOOKS
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN') or hasRole('LIBRARIAN')")
-    public ResponseEntity<List<BookDto>> getAllBooks() {
-        List<BookDto> books = bookService.getAllBooks();
+//    @PreAuthorize("hasRole('ADMIN') or hasRole('LIBRARIAN')")
+    public ResponseEntity<Page<BookDto>> getAllBooks(@RequestParam(defaultValue = "0") int page,
+                                                     @RequestParam(defaultValue = "5") int size,
+                                                     @RequestParam(defaultValue = "title") String sortBy) {
+        Page<BookDto> books = bookService.getAllBooks(page,size,sortBy);
         return ResponseEntity.ok(books);
     }
 
