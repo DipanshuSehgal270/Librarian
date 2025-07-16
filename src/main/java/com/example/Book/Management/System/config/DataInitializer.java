@@ -24,7 +24,6 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        // 🧑 Create users
         if (userRepository.count() == 0) {
             User user = new User();
             user.setUsername("user123");
@@ -33,7 +32,7 @@ public class DataInitializer implements CommandLineRunner {
             user.setEmail("user@example.com");
             user.setPassword(passwordEncoder.encode("password"));
             user.setRole(UserRole.USER);
-            userRepository.save(user); // ✅ You missed saving this!
+            userRepository.save(user);
 
             User admin = new User();
             admin.setUsername("dipanshu_admin");
@@ -45,7 +44,6 @@ public class DataInitializer implements CommandLineRunner {
             userRepository.save(admin);
         }
 
-        // 🧑‍🎓 Create authors
         Author author1 = null, author2 = null, author3 = null, author4 = null;
         if (authorRepository.count() == 0) {
             author1 = new Author("George R.R. Martin", "george.martin@example.com",
@@ -65,7 +63,6 @@ public class DataInitializer implements CommandLineRunner {
             author4 = authors.get(3);
         }
 
-        // 🏢 Create publishers
         Publisher pub1 = null, pub2 = null, pub3 = null, pub4 = null;
         if (publisherRepository.count() == 0) {
             pub1 = new Publisher("Bantam Books");
@@ -81,46 +78,58 @@ public class DataInitializer implements CommandLineRunner {
             pub4 = pubs.get(3);
         }
 
-        // 📚 Create books
         if (bookRepository.count() == 0) {
-            Book book1 = new Book(
-                    "A Game of Thrones", "9780553103540",
-                    "The first book in George R.R. Martin's epic fantasy series 'A Song of Ice and Fire'.",
-                    LocalDate.of(1996, 8, 6), 694,
-                    new BigDecimal("29.99"), author1, pub1
-            );
-            Book book2 = new Book(
-                    "Harry Potter and the Philosopher's Stone", "9780747532699",
-                    "The first novel in the Harry Potter series, introducing the young wizard Harry Potter.",
-                    LocalDate.of(1997, 6, 26), 223,
-                    new BigDecimal("19.99"), author2, pub2
-            );
-            Book book3 = new Book(
-                    "American Gods", "9780060558123",
-                    "Neil Gaiman's novel blending Americana, fantasy, and mythology.",
-                    LocalDate.of(2001, 6, 19), 465,
-                    new BigDecimal("24.50"), author3, pub3
-            );
-            Book book4 = new Book(
-                    "Mistborn: The Final Empire", "9780765311788",
-                    "Brandon Sanderson's high fantasy novel featuring Allomancy and rebellion.",
-                    LocalDate.of(2006, 7, 17), 541,
-                    new BigDecimal("22.75"), author4, pub4
-            );
-            Book book5 = new Book(
-                    "The Way of Kings", "9780765326355",
-                    "The first book of The Stormlight Archive, Sanderson's epic fantasy masterpiece.",
-                    LocalDate.of(2010, 8, 31), 1007,
-                    new BigDecimal("34.99"), author4, pub4
+            List<Book> books = List.of(
+                    new Book("A Game of Thrones", "9780553103540", "Epic fantasy series 'A Song of Ice and Fire'.",
+                            LocalDate.of(1996, 8, 6), 694, new BigDecimal("29.99"), author1, pub1),
+
+                    new Book("Harry Potter and the Philosopher's Stone", "9780747532699", "The first Harry Potter novel.",
+                            LocalDate.of(1997, 6, 26), 223, new BigDecimal("19.99"), author2, pub2),
+
+                    new Book("American Gods", "9780060558123", "Gaiman's Americana-mythic fantasy.",
+                            LocalDate.of(2001, 6, 19), 465, new BigDecimal("24.50"), author3, pub3),
+
+                    new Book("Mistborn: The Final Empire", "9780765311788", "Fantasy rebellion and Allomancy.",
+                            LocalDate.of(2006, 7, 17), 541, new BigDecimal("22.75"), author4, pub4),
+
+                    new Book("The Way of Kings", "9780765326355", "Stormlight Archive book one.",
+                            LocalDate.of(2010, 8, 31), 1007, new BigDecimal("34.99"), author4, pub4),
+
+                    new Book("A Clash of Kings", "9780553579901", "Second in 'A Song of Ice and Fire'.",
+                            LocalDate.of(1998, 11, 16), 768, new BigDecimal("32.99"), author1, pub1),
+
+                    new Book("A Storm of Swords", "9780553573428", "Third in 'A Song of Ice and Fire'.",
+                            LocalDate.of(2000, 8, 8), 973, new BigDecimal("36.99"), author1, pub1),
+
+                    new Book("Harry Potter and the Chamber of Secrets", "9780439064873", "Year 2 at Hogwarts.",
+                            LocalDate.of(1998, 7, 2), 251, new BigDecimal("20.99"), author2, pub2),
+
+                    new Book("Harry Potter and the Prisoner of Azkaban", "9780439136365", "Sirius Black enters.",
+                            LocalDate.of(1999, 7, 8), 317, new BigDecimal("21.99"), author2, pub2),
+
+                    new Book("Coraline", "9780380807345", "Dark fantasy for children.",
+                            LocalDate.of(2002, 8, 4), 162, new BigDecimal("14.95"), author3, pub3),
+
+                    new Book("Good Omens", "9780060853983", "Armageddon comedy with Terry Pratchett.",
+                            LocalDate.of(1990, 5, 1), 288, new BigDecimal("19.95"), author3, pub3),
+
+                    new Book("Elantris", "9780765350374", "Sanderson's debut novel.",
+                            LocalDate.of(2005, 4, 21), 638, new BigDecimal("24.00"), author4, pub4),
+
+                    new Book("Warbreaker", "9780765320308", "Standalone fantasy with biochromatic magic.",
+                            LocalDate.of(2009, 6, 9), 688, new BigDecimal("28.00"), author4, pub4),
+
+                    new Book("A Feast for Crows", "9780553582024", "Fourth in 'A Song of Ice and Fire'.",
+                            LocalDate.of(2005, 11, 8), 753, new BigDecimal("35.00"), author1, pub1),
+
+                    new Book("A Dance with Dragons", "9780553582017", "Fifth in the fantasy series.",
+                            LocalDate.of(2011, 7, 12), 1016, new BigDecimal("38.00"), author1, pub1)
             );
 
-            // Set initial status
-            List<Book> books = List.of(book1, book2, book3, book4, book5);
-            books.forEach(b -> b.setStatus(BookStatus.AVAILABLE));
+            books.forEach(book -> book.setStatus(BookStatus.AVAILABLE));
             bookRepository.saveAll(books);
         }
 
-        // 📕 Create sample borrow records
         if (borrowRecordRepository.count() == 0) {
             User user = userRepository.findByEmail("user@example.com").orElseThrow();
             Book book1 = bookRepository.findByTitle("A Game of Thrones").orElseThrow();

@@ -8,8 +8,14 @@ import com.example.Book.Management.System.entity.Publisher;
 import com.example.Book.Management.System.repository.BookRepository;
 import com.example.Book.Management.System.repository.AuthorRepository;
 import com.example.Book.Management.System.repository.PublisherRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,10 +33,13 @@ public class BookService {
     @Autowired
     private PublisherRepository publisherRepository;
 
-    public List<BookDto> getAllBooks() {
-        return bookRepository.findAll().stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
+    @Autowired
+    private ModelMapper modelMapper;
+
+    public Page<BookDto> getAllBooks(int pageNumber , int pageSize , String feild) {
+        Pageable pageable =  PageRequest.of(pageNumber , pageSize , Sort.by(feild));
+        return bookRepository.findAll(pageable)
+                .map(book -> modelMapper.map(book, BookDto.class));
     }
 
     public Optional<BookDto> getBookById(Long id) {
