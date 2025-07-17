@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: book-management-system
+
+  output:
+    ansi:
+      enables:
+        ALWAYS
+
+  profiles:
+    active: dev
