@@ -1,6 +1,6 @@
 FROM openjdk:17-jdk-slim
 
-EXPOSE 8443
+EXPOSE 8080
 
 COPY target/book-management-system.jar app.jar
 
