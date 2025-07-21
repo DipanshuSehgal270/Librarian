@@ -24,6 +24,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
+
     @Operation(summary = "Get all users", description = "Retrieve a list of all users in the system.")
     @ApiResponse(responseCode = "200", description = "Users retrieved successfully")
     @GetMapping
@@ -31,6 +33,8 @@ public class UserController {
         List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
+
+
 
     @Operation(summary = "Get user by ID", description = "Fetch a user by their unique ID.")
     @ApiResponses({
@@ -46,6 +50,8 @@ public class UserController {
         return user.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+
 
     @Operation(summary = "Create new user", description = "Add a new user to the system.")
     @ApiResponses({
@@ -65,11 +71,15 @@ public class UserController {
         }
     }
 
+
+
     @Operation(summary = "Update existing user", description = "Update user details using their ID.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "User updated successfully"),
             @ApiResponse(responseCode = "404", description = "User not found")
     })
+
+    //TODO not working correctly
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(
             @Parameter(description = "ID of the user to update", required = true, example = "1")
@@ -86,12 +96,15 @@ public class UserController {
         }
     }
 
+
+
     @Operation(summary = "Delete user", description = "Remove a user from the system using their ID.")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "User deleted successfully"),
             @ApiResponse(responseCode = "404", description = "User not found")
     })
     @DeleteMapping("/{id}")
+    //TODO NOT WORKING CORRECTLY
     public ResponseEntity<Void> deleteUser(
             @Parameter(description = "ID of the user to delete", required = true, example = "1")
             @PathVariable Long id
@@ -103,6 +116,8 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+
+
 
     @Operation(summary = "Get user by username", description = "Retrieve a user based on their username.")
     @ApiResponses({
@@ -119,6 +134,8 @@ public class UserController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+
+
     @Operation(summary = "Get user by email", description = "Retrieve a user based on their email address.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "User found"),
@@ -133,6 +150,8 @@ public class UserController {
         return user.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+
 
     @Operation(summary = "Get users by role", description = "Retrieve users who have a specific role (e.g. ADMIN, USER).")
     @ApiResponse(responseCode = "200", description = "Users retrieved successfully")
