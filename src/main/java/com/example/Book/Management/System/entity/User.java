@@ -1,11 +1,13 @@
 package com.example.Book.Management.System.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -17,7 +19,7 @@ public class User {
 
     @NotBlank(message = "Username is required")
     @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = false)
     private String username;
 
     @NotBlank(message = "First name is required")
@@ -48,6 +50,10 @@ public class User {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<BorrowRecord> borrowRecords;
 
     @PrePersist
     protected void onCreate() {

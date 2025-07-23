@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -88,19 +86,19 @@ public class BookController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('BOOK_DELETE') or hasRole('ADMIN')")
     @Operation(summary = "Delete a book", description = "Delete a book from the system using its ID. Only Admins can perform this.")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Book deleted successfully"),
             @ApiResponse(responseCode = "404", description = "Book not found")
     })
-    public ResponseEntity<Void> deleteBook(
+    public ResponseEntity<String> deleteBook(
             @Parameter(description = "ID of the book to delete") @PathVariable Long id) {
         try {
             bookService.deleteBook(id);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok("Book with ID " + id + " is deleted successfully.");
         } catch (Exception e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok("Book not deleted.");
         }
     }
 

@@ -8,4 +8,4 @@ spring:
         ALWAYS
 
   profiles:
-    active: dev
+    active: prod

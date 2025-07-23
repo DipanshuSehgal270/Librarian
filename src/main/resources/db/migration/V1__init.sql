@@ -47,9 +47,9 @@ CREATE TABLE books (
     created_at DATETIME,
     updated_at DATETIME,
     author_id BIGINT NOT NULL,
-    publisher_id BIGINT NOT NULL,
-    CONSTRAINT fk_books_author FOREIGN KEY (author_id) REFERENCES authors(id),
-    CONSTRAINT fk_books_publisher FOREIGN KEY (publisher_id) REFERENCES publishers(id)
+    publisher_id BIGINT,
+    CONSTRAINT fk_books_author FOREIGN KEY (author_id) REFERENCES authors(id) ON DELETE RESTRICT,
+    CONSTRAINT fk_books_publisher FOREIGN KEY (publisher_id) REFERENCES publishers(id) ON DELETE SET NULL
 );
 
 -- BORROW_RECORD TABLE
@@ -60,6 +60,6 @@ CREATE TABLE borrow_record (
     borrow_date DATE,
     return_date DATE,
     status VARCHAR(20),
-    CONSTRAINT fk_borrow_user FOREIGN KEY (user_id) REFERENCES users(id),
-    CONSTRAINT fk_borrow_book FOREIGN KEY (book_id) REFERENCES books(id)
+    CONSTRAINT fk_borrow_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT fk_borrow_book FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
 );

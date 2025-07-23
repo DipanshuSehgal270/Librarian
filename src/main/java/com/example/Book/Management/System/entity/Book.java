@@ -1,5 +1,6 @@
 package com.example.Book.Management.System.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -10,6 +11,7 @@ import lombok.AllArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "books")
@@ -64,6 +66,10 @@ public class Book {
     @JoinColumn(name = "publisher_id", nullable = false)
     @JsonBackReference
     private Publisher publisher;
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<BorrowRecord> borrowRecords;
 
     @PrePersist
     protected void onCreate() {
