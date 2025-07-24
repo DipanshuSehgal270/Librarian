@@ -21,9 +21,8 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-    //TODO SOLVING THE ERROR FOR FETCHING ALL BOOKS
     @GetMapping
-//    @PreAuthorize("hasRole('ADMIN') or hasRole('LIBRARIAN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('LIBRARIAN')")
     public ResponseEntity<Page<BookDto>> getAllBooks(@RequestParam(defaultValue = "0") int page,
                                                      @RequestParam(defaultValue = "5") int size,
                                                      @RequestParam(defaultValue = "title") String sortBy) {
