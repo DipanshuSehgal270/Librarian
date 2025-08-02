@@ -2,6 +2,7 @@ package com.example.Book.Management.System.security.jwt;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import java.security.Key;
 import java.util.Date;
@@ -10,11 +11,11 @@ import java.util.function.Function;
 @Component
 public class JwtUtils {
 
-    // MUST be at least 256-bit (32+ chars) for HS256
-    private static final String SECRET = "abcd1234abcd1234abcd1234abcd1234";
+    @Value("${spring.application.security.jwt.secretKey}")
+    private static String secretKey;
 
     private Key getSigningKey() {
-        return Keys.hmacShaKeyFor(SECRET.getBytes());
+        return Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 
     private static final long EXPIRATION_TIME = 1000 * 60 * 60; // 1 hour

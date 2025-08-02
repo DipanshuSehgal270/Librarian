@@ -26,6 +26,9 @@ spring:
 
   application:
     name: book-management-system
+    security:
+      jwt:
+        secretKey: "n3c485tc348tgncdxn374tfy23n47c34gxn24siu24gdx3uivxtn34gsuit2y3"
 
 server:
   port: 8080

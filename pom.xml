@@ -16,7 +16,9 @@
 
 	<properties>
 		<java.version>17</java.version>
+		<sonar.host.url>http://localhost:9000</sonar.host.url>
 	</properties>
+
 
 	<dependencies>
 
@@ -144,6 +146,21 @@
 					</archive>
 				</configuration>
 			</plugin>
+
+			<!-- SonarQube plugin -->
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.11.0.3922</version> <!-- Keep this updated to the latest stable version -->
+			</plugin>
+
+			<!-- JaCoCo plugin for code coverage -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.12</version> <!-- Keep this updated to the latest stable version -->
+			</plugin>
+
 		</plugins>
 	</build>
 </project>

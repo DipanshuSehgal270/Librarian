@@ -32,6 +32,7 @@ public class BookController {
             @ApiResponse(responseCode = "200", description = "Books retrieved successfully"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
+//    @PreAuthorize("hasRole('ADMIN") // TODO
     public ResponseEntity<Page<BookDto>> getAllBooks(
             @Parameter(description = "Page number to retrieve") @RequestParam(defaultValue = "0") int page,
             @Parameter(description = "Number of items per page") @RequestParam(defaultValue = "5") int size,
@@ -162,4 +163,7 @@ public class BookController {
         List<BookDto> books = bookService.getBooksByStatus(status);
         return ResponseEntity.ok(books);
     }
+
+
+
 }

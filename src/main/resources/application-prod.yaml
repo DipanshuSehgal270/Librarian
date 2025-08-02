@@ -19,6 +19,9 @@ spring:
 
   application:
     name: book-management-system
+    security:
+      jwt:
+        secretKey: "26vh4gv265r42vdrt64hv2dr86th4v2ts68h42cse6rg42cr8we4yv2w84"
 
   flyway:
     enabled: true
