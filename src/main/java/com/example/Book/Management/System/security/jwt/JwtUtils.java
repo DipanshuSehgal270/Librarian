@@ -12,7 +12,7 @@ import java.util.function.Function;
 public class JwtUtils {
 
     @Value("${spring.application.security.jwt.secretKey}")
-    private static String secretKey;
+    private String secretKey;
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(secretKey.getBytes());
