@@ -14,11 +14,12 @@ public class JwtUtils {
     @Value("${spring.application.security.jwt.secretKey}")
     private String secretKey;
 
+    @Value("${spring.application.security.jwt.EXPIRATION_TIME}")
+    private long EXPIRATION_TIME;
+
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(secretKey.getBytes());
     }
-
-    private static final long EXPIRATION_TIME = 1000 * 60 * 60; // 1 hour
 
     public String generateToken(String username) {
         return Jwts.builder()
@@ -27,18 +28,6 @@ public class JwtUtils {
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
-    }
-
-    public boolean validateToken(String token) {
-        try {
-            Jwts.parserBuilder()
-                    .setSigningKey(getSigningKey())
-                    .build()
-                    .parseClaimsJws(token);
-            return true;
-        } catch (JwtException e) {
-            return false;
-        }
     }
 
     public String extractUsername(String token) {

@@ -19,7 +19,6 @@
 		<sonar.host.url>http://localhost:9000</sonar.host.url>
 	</properties>
 
-
 	<dependencies>
 
 		<dependency>
@@ -110,6 +109,12 @@
 			<artifactId>flyway-mysql</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+			<version>4.0.0-M1</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -147,18 +152,16 @@
 				</configuration>
 			</plugin>
 
-			<!-- SonarQube plugin -->
 			<plugin>
 				<groupId>org.sonarsource.scanner.maven</groupId>
 				<artifactId>sonar-maven-plugin</artifactId>
-				<version>3.11.0.3922</version> <!-- Keep this updated to the latest stable version -->
+				<version>3.11.0.3922</version>
 			</plugin>
 
-			<!-- JaCoCo plugin for code coverage -->
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.12</version> <!-- Keep this updated to the latest stable version -->
+				<version>0.8.12</version>
 			</plugin>
 
 		</plugins>
