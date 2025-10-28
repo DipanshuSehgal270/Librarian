@@ -18,5 +18,7 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
 
     @Query("SELECT a FROM Author a JOIN a.books b GROUP BY a.id ORDER BY COUNT(b) DESC")
     List<Author> findAuthorsOrderByBookCount();
+
+    boolean existsByEmail(String email);
 }
 

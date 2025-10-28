@@ -17,4 +17,6 @@ public interface PublisherRepository extends JpaRepository<Publisher, Long> {
     List<Publisher> findByNameContainingIgnoreCase(@Param("name") String name);
 
     Optional<Publisher> findByName(String bantamBooks);
+
+    boolean existsByName(String name);
 }

@@ -14,7 +14,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
@@ -40,11 +40,23 @@ server:
 logging:
   level:
     root: INFO
-    com.example.Book.Management: DEBUG
-    org.springframework.security: DEBUG
-    org.springframework.web: INFO
-    org.hibernate.SQL: DEBUG
 
 
+management:
+  endpoints:
+    web:
+      exposure:
+        # Exposes health, info, and the Prometheus metrics endpoint
+        include: 'health,info,prometheus,metrics'
+  endpoint:
+    health:
+      # CRITICAL: Ensures details about components (DB, Disk) are visible
+      show-details: always
 
 
+# can view all actuator endpoints but not good according to security
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: '*'
