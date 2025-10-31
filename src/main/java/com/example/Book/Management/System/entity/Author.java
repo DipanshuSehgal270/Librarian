@@ -41,6 +41,10 @@ public class Author {
     @JsonManagedReference
     private List<Book> books;
 
+    public Author(long l) {
+        this.id=l;
+    }
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
@@ -56,6 +60,14 @@ public class Author {
     public Author() {}
 
     public Author(String name, String email, LocalDate birthDate, String biography) {
+        this.name = name;
+        this.email = email;
+        this.birthDate = birthDate;
+        this.biography = biography;
+    }
+
+    public Author(Long id,String name, String email, LocalDate birthDate, String biography) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.birthDate = birthDate;

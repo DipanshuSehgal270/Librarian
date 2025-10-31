@@ -16,9 +16,13 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.test.web.servlet.MockMvc;
+<<<<<<< Updated upstream
 
 import java.util.List;
 
+=======
+import java.util.List;
+>>>>>>> Stashed changes
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -41,7 +45,11 @@ public class BookControllerTest {
     @MockBean
     private CustomUserDetailsService userDetailsService;
 
+<<<<<<< Updated upstream
     @Test
+=======
+
+>>>>>>> Stashed changes
     void testGetBooksWithPagination() throws Exception {
         BookDto bookDto = new BookDto();
         bookDto.setId(1L);
@@ -57,4 +65,14 @@ public class BookControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content[0].title").value("Test Book"));
     }
+<<<<<<< Updated upstream
+=======
+
+    @Test
+    public void checkPrinting()
+    {
+        System.out.println("this is a sample test case for printing.");
+    }
+
+>>>>>>> Stashed changes
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @RestControllerAdvice
@@ -53,5 +54,33 @@ public class GlobalExceptionHandler {
         response.put("message", "An unexpected error occurred");
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+    }
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<Object> handleNotFoundException(
+            ProductNotFoundException ex) {
+
+        // 1. Create a structured JSON error body.
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("status", HttpStatus.NOT_FOUND.value());
+        body.put("error", "Not Found");
+        body.put("message", ex.getMessage()); // Uses the message from the exception constructor
+
+        // 2. Return the structured body with the correct 404 status.
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(BookNotFoundException.class)
+    public ResponseEntity<Map<String,Object>> handleBookNotFoundException(BookNotFoundException e)
+    {
+        Map<String,Object> response = new LinkedHashMap<>();
+        response.put("timestamp", LocalDateTime.now());
+        response.put("Status" , HttpStatus.NOT_FOUND.value());
+        response.put("error","Not Found");
+        response.put("Message",e.getMessage());
+
+        return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
+
     }
 }

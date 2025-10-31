@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.Min;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "books")
 @AllArgsConstructor
+@Data
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,6 +67,7 @@ public class Book {
     @JsonBackReference
     private Publisher publisher;
 
+<<<<<<< Updated upstream
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
@@ -75,9 +78,38 @@ public class Book {
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
+=======
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<BorrowRecord> borrowRecords;
+
+//    @PrePersist
+//    protected void onCreate() {
+//        createdAt = LocalDateTime.now();
+//        updatedAt = LocalDateTime.now();
+//    }
+//
+//    @PreUpdate
+//    protected void onUpdate() {
+//        updatedAt = LocalDateTime.now();
+//    }
+>>>>>>> Stashed changes
 
     // Constructors
     public Book() {}
+
+    public Book(Long id,String title, String isbn, String description, LocalDate publicationDate,
+                Integer pageCount, BigDecimal price, Author author, Publisher publisher) {
+        this.id = id;
+        this.title = title;
+        this.isbn = isbn;
+        this.description = description;
+        this.publicationDate = publicationDate;
+        this.pageCount = pageCount;
+        this.price = price;
+        this.author = author;
+        this.publisher = publisher;
+    }
 
     public Book(String title, String isbn, String description, LocalDate publicationDate,
                 Integer pageCount, BigDecimal price, Author author, Publisher publisher) {
@@ -90,6 +122,8 @@ public class Book {
         this.author = author;
         this.publisher = publisher;
     }
+
+
 
     // Getters and Setters
     public Long getId() { return id; }
@@ -130,5 +164,10 @@ public class Book {
 
     public Publisher getPublisher() { return publisher; }
     public void setPublisher(Publisher publisher) { this.publisher = publisher; }
+
+
+//    public void setTitle(String theTestTitle) {
+//        this.title=theTestTitle;
+//    }
 }
 

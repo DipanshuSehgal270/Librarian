@@ -51,6 +51,10 @@ public class Publisher {
         this.name = name;
     }
 
+    public Publisher(Long l) {
+        this.id=l;
+    }
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();

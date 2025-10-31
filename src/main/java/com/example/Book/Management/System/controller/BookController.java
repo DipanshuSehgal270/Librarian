@@ -39,7 +39,16 @@ public class BookController {
     }
 
     @PostMapping
+<<<<<<< Updated upstream
     public ResponseEntity<BookDto> createBook(@Valid @RequestBody BookDto bookDto) {
+=======
+    @Operation(summary = "Create a new book", description = "Add a new book to the system. Accepts BookDto as JSON.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Book created successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid input data")
+    })
+    public ResponseEntity<BookDto> createBook(@RequestBody @Valid BookDto bookDto) {
+>>>>>>> Stashed changes
         try {
             BookDto savedBook = bookService.saveBook(bookDto);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedBook);

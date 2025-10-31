@@ -5,12 +5,14 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+
 public class BookDto {
-    private Long id;
 
     @NotBlank(message = "Title is required")
     @Size(min = 1, max = 200)
@@ -42,9 +44,20 @@ public class BookDto {
     // Constructors
     public BookDto() {}
 
-    // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+
+    public BookDto(String title, String isbn, LocalDate publicationDate, Integer pageCount, BigDecimal price, BookStatus status, String coverImageUrl, Long authorId, Long publisherId, String authorName, String publisherName) {
+        this.title = title;
+        this.isbn = isbn;
+        this.publicationDate = publicationDate;
+        this.pageCount = pageCount;
+        this.price = price;
+        this.status = status;
+        this.coverImageUrl = coverImageUrl;
+        this.authorId = authorId;
+        this.publisherId = publisherId;
+        this.authorName = authorName;
+        this.publisherName = publisherName;
+    }
 
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
