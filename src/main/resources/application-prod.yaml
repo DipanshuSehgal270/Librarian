@@ -46,9 +46,9 @@ spring:
   datasource:
     # Render automatically injects the correct URL into SPRING_DATASOURCE_URL
     # Do not hardcode 'jdbc:mysql://...' here.
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://dpg-d4sr07buibrs73bi9gjg-a.oregon-postgres.render.com:5432/my_db_b5j1?sslmode=require
+    username: my_db_b5j1_user
+    password: yd7GMZ1KmzPa3mno1foYCh68VMEEsykM
     driver-class-name: org.postgresql.Driver
 
   output:
@@ -59,7 +59,7 @@ spring:
     hibernate:
       # In production, this must be 'validate' or 'none'. Never 'update'.
       # Flyway handles the schema changes.
-      ddl-auto: validate
+      ddl-auto: update
     show-sql: false
     properties:
       hibernate:
