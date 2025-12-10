@@ -36,3 +36,6 @@ build/
 
 ### VS Code ###
 .vscode/
+src/main/resources/application-dev.yaml
+src/main/resources/application-test.yaml
+src/main/resources/db/migration/V1__init.sql
