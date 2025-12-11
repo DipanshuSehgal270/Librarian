@@ -46,9 +46,9 @@ spring:
   datasource:
     # Render automatically injects the correct URL into SPRING_DATASOURCE_URL
     # Do not hardcode 'jdbc:mysql://...' here.
-    url: jdbc:postgresql://dpg-d4sr07buibrs73bi9gjg-a.oregon-postgres.render.com:5432/my_db_b5j1?sslmode=require
-    username: my_db_b5j1_user
-    password: yd7GMZ1KmzPa3mno1foYCh68VMEEsykM
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   output:
