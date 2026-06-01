@@ -27,7 +27,8 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtFilter;
     private final CustomUserDetailsService userDetailsService;
 
-    public String[] permitLinks = {"/swagger-ui/**","/v3/api-docs/**","/swagger-resources/**","/swagger-ui.html","/webjars/**","/auth/**","/api/auth/**"};
+    public String[] permitLinks = {"/swagger-ui/**","/v3/api-docs/**","/swagger-resources/**"
+            ,"/swagger-ui.html","/webjars/**","/auth/**","/api/auth/**","/healthCheck"};
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
